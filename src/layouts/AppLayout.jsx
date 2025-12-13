@@ -1,9 +1,29 @@
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '@/store/authSlice'
 import { toggleSidebar } from '@/store/uiSlice'
-
-// ... existing imports
+import { Sidebar, SidebarHeader, SidebarContent, SidebarItem, SidebarFooter, SidebarProvider } from '@/components/ui/sidebar'
+import { Home, Calendar, Ticket, User, LogOut, Menu } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
 
 const AppLayout = () => {
-  // ... existing hooks
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const { user } = useSelector((state) => state.auth)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/login')
+  }
+
+  const menuItems = [
+    { icon: <Home className="h-5 w-5" />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <Calendar className="h-5 w-5" />, label: 'Events', path: '/events' },
+    { icon: <Ticket className="h-5 w-5" />, label: 'My Bookings', path: '/bookings' },
+    { icon: <User className="h-5 w-5" />, label: 'Profile', path: '/profile' },
+  ]
 
   return (
     <SidebarProvider>
@@ -30,7 +50,7 @@ const AppLayout = () => {
             ))}
           </SidebarContent>
           <SidebarFooter>
-            <div className={`space-y-2`}>
+            <div className="space-y-2">
               <div className="px-3 py-2 text-sm text-slate-600 truncate">
                 {user?.name}
               </div>
@@ -77,4 +97,3 @@ const AppLayout = () => {
 }
 
 export default AppLayout
-
