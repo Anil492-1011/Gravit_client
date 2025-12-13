@@ -12,7 +12,7 @@ const AppLayout = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const { user } = useSelector((state) => state.auth)
-
+console.log("hey user ko print kr wa", user);
   const handleLogout = () => {
     dispatch(logout())
     navigate('/login')
