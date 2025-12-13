@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, Calendar, MapPin, Ticket, LogIn, UserPlus, LogOut } from 'lucide-react'
 import Footer from '@/components/Footer'
+import Carousel from '@/components/Carousel'
 
 const Landing = () => {
   const navigate = useNavigate()
@@ -199,7 +200,32 @@ const Landing = () => {
         </Card>
       </section>
 
-      {/* Events Grid */}
+
+
+      {/* Featured Events Carousel */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+         <Carousel 
+            title="Featured Events"
+            items={events.slice(0, 5).map(event => ({
+                title: event.title,
+                description: event.description,
+                image: event.image,
+                badge: 'Popular',
+                action: (
+                    <Button 
+                        size="sm" 
+                        variant="secondary"
+                        className="w-full text-indigo-600 bg-indigo-50 hover:bg-indigo-100"
+                        onClick={() => handleEventClick(event.id)}
+                    >
+                        View Details
+                    </Button>
+                )
+            }))}
+         />
+      </section>
+
+      {/* All Events Grid */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {loading ? (
           <div className="text-center py-12">
