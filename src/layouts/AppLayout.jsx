@@ -1,35 +1,21 @@
-import { Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '@/store/authSlice'
-import { Sidebar, SidebarHeader, SidebarContent, SidebarItem, SidebarFooter, SidebarProvider } from '@/components/ui/sidebar'
-import { Home, Calendar, Ticket, User, LogOut, Menu } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
+import { toggleSidebar } from '@/store/uiSlice'
+
+// ... existing imports
 
 const AppLayout = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const { user } = useSelector((state) => state.auth)
-
-  const handleLogout = () => {
-    dispatch(logout())
-    navigate('/login')
-  }
-
-  const menuItems = [
-    { icon: <Home className="h-5 w-5" />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <Calendar className="h-5 w-5" />, label: 'Events', path: '/events' },
-    { icon: <Ticket className="h-5 w-5" />, label: 'My Bookings', path: '/bookings' },
-    { icon: <User className="h-5 w-5" />, label: 'Profile', path: '/profile' },
-  ]
+  // ... existing hooks
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar>
           <SidebarHeader>
-            <span className="text-lg font-bold">Event Booking</span>
+            <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    EB
+                </div>
+                <span className="text-lg font-bold text-slate-900">Event Booking</span>
+            </div>
           </SidebarHeader>
           <SidebarContent>
             {menuItems.map((item) => (
@@ -44,13 +30,13 @@ const AppLayout = () => {
             ))}
           </SidebarContent>
           <SidebarFooter>
-            <div className="space-y-2">
-              <div className="px-3 py-2 text-sm text-slate-600">
+            <div className={`space-y-2`}>
+              <div className="px-3 py-2 text-sm text-slate-600 truncate">
                 {user?.name}
               </div>
               <Button
                 variant="ghost"
-                className="w-full justify-start"
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
                 onClick={handleLogout}
               >
                 <LogOut className="h-4 w-4 mr-2" />
@@ -59,16 +45,32 @@ const AppLayout = () => {
             </div>
           </SidebarFooter>
         </Sidebar>
-        <main className="flex-1 overflow-y-auto bg-slate-50">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="p-4 sm:p-6"
-          >
-            <Outlet />
-          </motion.div>
-        </main>
+        
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+             {/* Mobile Header */}
+             <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        EB
+                    </div>
+                    <span className="font-bold text-lg text-slate-900">Event Booking</span>
+                </div>
+                <Button variant="ghost" size="icon" onClick={() => dispatch(toggleSidebar())}>
+                    <Menu className="h-6 w-6 text-slate-600" />
+                </Button>
+            </div>
+
+            <main className="flex-1 overflow-y-auto bg-slate-50 p-4 sm:p-6 lg:p-8">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="max-w-7xl mx-auto"
+            >
+                <Outlet />
+            </motion.div>
+            </main>
+        </div>
       </div>
     </SidebarProvider>
   )

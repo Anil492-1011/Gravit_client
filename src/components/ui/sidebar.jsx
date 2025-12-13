@@ -34,20 +34,40 @@ export const SidebarProvider = ({ children }) => {
 }
 
 const Sidebar = React.forwardRef(({ className, children, ...props }, ref) => {
-  const { isOpen } = useSidebar()
+  const { isOpen, toggle } = useSidebar()
+  const dispatch = useDispatch() // Need display for closing on mobile
+
+  // Close sidebar on mobile when route changes or backdrop click
+  // Ideally we handle this in the layout or here if we have location access, but backdrop click is enough
 
   return (
-    <aside
-      ref={ref}
-      className={cn(
-        "z-40 h-screen transition-all duration-300 bg-white border-r border-slate-200 sticky top-0",
-        isOpen ? "w-64" : "w-16",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </aside>
+    <>
+      {/* Mobile Backdrop */}
+      <div 
+        className={cn(
+          "fixed inset-0 z-30 bg-black/50 transition-opacity md:hidden",
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}
+        onClick={toggle}
+      />
+
+      <aside
+        ref={ref}
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 h-screen transition-transform duration-300 bg-white border-r border-slate-200 shadow-xl md:shadow-none",
+          "md:sticky md:top-0 md:translate-x-0", // Desktop: sticky, always visible (transform handled by width prop in logic below?)
+          // Actually, for desktop we want to animate width, for mobile we animate translate
+          // Let's separate mobile and desktop logic more clearly via classes
+          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0", 
+          // Desktop width handling:
+          isOpen ? "md:w-64" : "md:w-16",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </aside>
+    </>
   )
 })
 Sidebar.displayName = "Sidebar"
@@ -58,17 +78,36 @@ const SidebarHeader = React.forwardRef(({ className, children, ...props }, ref) 
   return (
     <div
       ref={ref}
-      className={cn("flex items-center justify-between p-4 border-b border-slate-200", className)}
+      className={cn("flex items-center justify-between p-4 border-b border-slate-200 h-16", className)}
       {...props}
     >
-      {isOpen && <div className="font-semibold text-indigo-600">{children}</div>}
+      {(isOpen || window.innerWidth >= 768) && (
+             <div className="font-bold text-xl text-indigo-600 tracking-tight flex items-center gap-2">
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                    EB
+                </div>
+                <span className={cn("transition-opacity duration-200", isOpen ? "opacity-100" : "md:opacity-0 md:hidden")}>
+                    {children}
+                </span>
+             </div>
+      )}
       <Button
         variant="ghost"
         size="icon"
         onClick={toggle}
-        className="ml-auto"
+        className="ml-auto md:flex hidden" // Only show internal toggle on desktop to collapse? 
+        // Actually, on mobile we need an external toggle.
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </Button>
+       {/* Mobile Close Button */}
+       <Button
+        variant="ghost"
+        size="icon"
+        onClick={toggle}
+        className="ml-auto md:hidden flex"
+      >
+        <X className="h-5 w-5" />
       </Button>
     </div>
   )
