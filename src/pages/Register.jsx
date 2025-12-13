@@ -15,11 +15,12 @@ const Register = () => {
   const { loading, error, user } = useSelector((state) => state.auth)
   const { toast } = useToast()
 
+  const [activeTab, setActiveTab] = useState('user')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    ConfirmPassword: '',
   })
 
   useEffect(() => {
@@ -46,17 +47,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: 'Error',
-        description: 'Passwords do not match',
-        variant: 'destructive',
-      })
-      return
-    }
-
-    const { confirmPassword, ...registerData } = formData
-    const result = await dispatch(register(registerData))
+    const result = await dispatch(register(formData))
     
     if (result.type === 'auth/register/fulfilled') {
       toast({
@@ -72,20 +63,46 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-white p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-white p-4 sm:p-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center text-indigo-600">
+        <Card className="shadow-lg rounded-xl overflow-hidden">
+          <CardHeader className="space-y-1 pb-6">
+            {/* Tab Switcher */}
+            <div className="flex w-full mb-6 border-b">
+              <button
+                type="button"
+                onClick={() => setActiveTab('user')}
+                className={`flex-1 pb-2 text-sm transition-all ${
+                  activeTab === 'user'
+                    ? 'border-b-2 border-indigo-600 font-bold text-indigo-600'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                User
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('admin')}
+                className={`flex-1 pb-2 text-sm transition-all ${
+                  activeTab === 'admin'
+                    ? 'border-b-2 border-indigo-600 font-bold text-indigo-600'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                Admin
+              </button>
+            </div>
+
+            <CardTitle className="text-2xl font-bold text-center text-slate-900">
               Create Account
             </CardTitle>
-            <CardDescription className="text-center">
-              Sign up to get started with event bookings
+            <CardDescription className="text-center text-slate-600">
+              Join us and start booking amazing events
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -99,10 +116,11 @@ const Register = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
+                  className="rounded-md"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
@@ -110,6 +128,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
+                  className="rounded-md"
                 />
               </div>
               <div className="space-y-2">
@@ -117,34 +136,36 @@ const Register = () => {
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Create a password"
+                  placeholder="Minimum 6 characters"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   required
+                  className="rounded-md"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+               <div className="space-y-2">
+                <Label htmlFor="ConfirmPassword">ConfirmPassword</Label>
                 <Input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  id="Confirmpassword"
+                  type="Confirmpassword"
+                  placeholder="Minimum 6 characters"
+                  value={formData.ConfirmPassword}
+                  onChange={(e) => setFormData({ ...formData, ConfirmPassword: e.target.value })}
                   required
+                  className="rounded-md"
                 />
               </div>
             </CardContent>
-            <CardFooter className="flex flex-col space-y-4">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full">
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Creating account...' : 'Sign Up'}
+            <CardFooter className="flex flex-col space-y-4 pt-2">
+              <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} className="w-full">
+                <Button type="submit" className="w-full shadow-sm rounded-md" disabled={loading}>
+                  {loading ? 'Creating account...' : 'Create Account'}
                 </Button>
               </motion.div>
               <p className="text-sm text-center text-slate-600">
                 Already have an account?{' '}
                 <Link to="/login" className="text-indigo-600 hover:underline font-medium">
-                  Sign in
+                  Sign In
                 </Link>
               </p>
             </CardFooter>
