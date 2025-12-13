@@ -62,9 +62,7 @@ const AdminLayout = () => {
           </SidebarFooter>
         </Sidebar>
         <main 
-          className={`flex-1 overflow-y-auto transition-all duration-300 ${
-            isOpen ? 'ml-64' : 'ml-16'
-          }`}
+          className="flex-1 overflow-y-auto transition-all duration-300 bg-slate-50"
         >
           <motion.div
             initial={{ opacity: 0 }}

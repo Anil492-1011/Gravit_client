@@ -40,7 +40,7 @@ const Sidebar = React.forwardRef(({ className, children, ...props }, ref) => {
     <aside
       ref={ref}
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen transition-all duration-300 bg-white border-r border-slate-200",
+        "z-40 h-screen transition-all duration-300 bg-white border-r border-slate-200 sticky top-0",
         isOpen ? "w-64" : "w-16",
         className
       )}
