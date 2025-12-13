@@ -19,8 +19,7 @@ const AdminLayout = () => {
 
   const menuItems = [
     { icon: <LayoutDashboard className="h-5 w-5" />, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: <Calendar className="h-5 w-5" />, label: 'Events', path: '/admin/events' },
-    { icon: <Plus className="h-5 w-5" />, label: 'Create Event', path: '/admin/events/create' },
+    { icon: <Calendar className="h-5 w-5" />, label: 'Manage Events', path: '/admin/events' },
     { icon: <Ticket className="h-5 w-5" />, label: 'Bookings', path: '/admin/bookings' },
   ]
 
