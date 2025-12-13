@@ -37,8 +37,7 @@ const Sidebar = React.forwardRef(({ className, children, ...props }, ref) => {
   const { isOpen, toggle } = useSidebar()
   const dispatch = useDispatch() // Need display for closing on mobile
 
-  // Close sidebar on mobile when route changes or backdrop click
-  // Ideally we handle this in the layout or here if we have location access, but backdrop click is enough
+
 
   return (
     <>
@@ -83,9 +82,7 @@ const SidebarHeader = React.forwardRef(({ className, children, ...props }, ref) 
     >
       {(isOpen || window.innerWidth >= 768) && (
              <div className="font-bold text-xl text-indigo-600 tracking-tight flex items-center gap-2">
-                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
-                    EB
-                </div>
+
                 <span className={cn("transition-opacity duration-200", isOpen ? "opacity-100" : "md:opacity-0 md:hidden")}>
                     {children}
                 </span>
