@@ -20,7 +20,7 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    ConfirmPassword: '',
+    
   })
 
   useEffect(() => {
@@ -47,7 +47,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    const result = await dispatch(register(formData))
+    const payload = {
+      ...formData,
+      role:activeTab
+    }
+    const result = await dispatch(register(payload))
     
     if (result.type === 'auth/register/fulfilled') {
       toast({
@@ -143,18 +147,7 @@ const Register = () => {
                   className="rounded-md"
                 />
               </div>
-               <div className="space-y-2">
-                <Label htmlFor="ConfirmPassword">ConfirmPassword</Label>
-                <Input
-                  id="Confirmpassword"
-                  type="Confirmpassword"
-                  placeholder="Minimum 6 characters"
-                  value={formData.ConfirmPassword}
-                  onChange={(e) => setFormData({ ...formData, ConfirmPassword: e.target.value })}
-                  required
-                  className="rounded-md"
-                />
-              </div>
+               
             </CardContent>
             <CardFooter className="flex flex-col space-y-4 pt-2">
               <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} className="w-full">
