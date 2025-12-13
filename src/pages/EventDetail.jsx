@@ -50,7 +50,7 @@ const EventDetail = () => {
     if (id) {
       dispatch(fetchEventById(id))
       // Fetch bookings for this event to get booked seats
-      dispatch(fetchAllBookings()).then((result) => {
+      dispatch(fetchAllBookings({ eventId: id })).then((result) => {
         if (result.type === 'bookings/fetchAllBookings/fulfilled') {
           const eventBookings = result.payload.filter(b => b.eventId === parseInt(id))
           const booked = new Set()
@@ -107,7 +107,8 @@ const EventDetail = () => {
         if (currentEvent) {
           dispatch(fetchEventById(id))
           // Also refresh booked seats
-          dispatch(fetchAllBookings()).then((result) => {
+          console.log('EventDetail interval dispatching with:', currentEvent?.id)
+          dispatch(fetchAllBookings({ eventId: currentEvent.id })).then((result) => {
             if (result.type === 'bookings/fetchAllBookings/fulfilled') {
               const eventBookings = result.payload.filter(b => b.eventId === currentEvent.id)
               const booked = new Set()
