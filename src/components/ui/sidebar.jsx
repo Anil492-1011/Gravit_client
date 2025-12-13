@@ -53,7 +53,7 @@ const Sidebar = React.forwardRef(({ className, children, ...props }, ref) => {
       <aside
         ref={ref}
         className={cn(
-          "fixed inset-y-0 left-0 z-40 h-screen transition-transform duration-300 bg-white border-r border-slate-200 shadow-xl md:shadow-none",
+          "fixed inset-y-0 left-0 z-40 h-screen transition-all duration-300 bg-white border-r border-slate-200 shadow-xl md:shadow-none overflow-x-hidden",
           "md:sticky md:top-0 md:translate-x-0", // Desktop: sticky, always visible (transform handled by width prop in logic below?)
           // Actually, for desktop we want to animate width, for mobile we animate translate
           // Let's separate mobile and desktop logic more clearly via classes

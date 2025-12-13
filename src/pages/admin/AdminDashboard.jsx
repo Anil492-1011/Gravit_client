@@ -97,7 +97,7 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {stats.map((stat) => (
           <motion.div key={stat.title} variants={itemVariants} className="h-full">
-            <Card className="border shadow-sm hover:shadow-md transition-shadow h-full flex flex-col justify-between">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all duration-200 h-full flex flex-col justify-between group">
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>

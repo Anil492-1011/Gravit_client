@@ -48,20 +48,20 @@ const AdminLayout = () => {
           <SidebarFooter>
             <div className={`space-y-2 ${!isOpen && 'flex flex-col items-center'}`}>
               {isOpen && (
-                <div className="px-3 py-2 text-sm text-slate-600 truncate">
+                <div className="px-3 py-2 text-sm text-slate-600 truncate font-medium">
                   {user?.name}
                 </div>
               )}
               <Button
                 variant="ghost"
-                className={`w-full text-red-600 hover:text-red-700 hover:bg-red-50 ${
-                  isOpen ? 'justify-start' : 'justify-center px-0'
+                className={`w-full text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200 ${
+                  isOpen ? 'justify-start px-4' : 'justify-center px-0 w-10 h-10'
                 }`}
                 onClick={handleLogout}
                 title="Logout"
               >
                 <LogOut className={`h-4 w-4 ${isOpen ? 'mr-2' : ''}`} />
-                {isOpen && "Logout"}
+                {isOpen && <span className="truncate">Logout</span>}
               </Button>
             </div>
           </SidebarFooter>

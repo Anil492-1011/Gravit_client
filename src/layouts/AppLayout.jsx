@@ -12,7 +12,9 @@ const AppLayout = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const { user } = useSelector((state) => state.auth)
-console.log("hey user ko print kr wa", user);
+ 
+  const isOpen = useSelector((state) => state.ui.sidebarOpen)
+
   const handleLogout = () => {
     dispatch(logout())
     navigate('/login')
@@ -46,17 +48,22 @@ console.log("hey user ko print kr wa", user);
             ))}
           </SidebarContent>
           <SidebarFooter>
-            <div className="space-y-2">
-              <div className="px-3 py-2 text-sm text-slate-600 truncate">
-                {user?.name}
-              </div>
+            <div className={`space-y-2 ${!isOpen && 'flex flex-col items-center'}`}>
+              {isOpen && (
+                <div className="px-3 py-2 text-sm text-slate-600 truncate font-medium">
+                  {user?.name}
+                </div>
+              )}
               <Button
                 variant="ghost"
-                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                className={`w-full text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200 ${
+                  isOpen ? 'justify-start px-4' : 'justify-center px-0 w-10 h-10'
+                }`}
                 onClick={handleLogout}
+                title="Logout"
               >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+                <LogOut className={`h-4 w-4 ${isOpen ? 'mr-2' : ''}`} />
+                {isOpen && <span className="truncate">Logout</span>}
               </Button>
             </div>
           </SidebarFooter>

@@ -26,7 +26,20 @@ api.interceptors.request.use(
 // Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+    
+    // Retry logic for network errors or specific status codes
+    if (error.message === 'Network Error' || (error.response && error.response.status >= 500) || error.code === 'ERR_HTTP2_PING_FAILED') {
+      originalRequest._retry = originalRequest._retry || 0;
+      if (originalRequest._retry < 3) {
+        originalRequest._retry += 1;
+        // Exponential backoff
+        await new Promise(resolve => setTimeout(resolve, originalRequest._retry * 1000));
+        return api(originalRequest);
+      }
+    }
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
