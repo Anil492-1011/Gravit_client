@@ -22,24 +22,14 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.role === 'admin') {
+      const role = user.role?.toLowerCase()
+      if (role === 'admin') {
         navigate('/admin/dashboard')
       } else {
         navigate('/dashboard')
       }
     }
   }, [user, navigate])
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        title: 'Error',
-        description: error,
-        variant: 'destructive',
-      })
-      dispatch(clearError())
-    }
-  }, [error, dispatch])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -49,7 +39,8 @@ const Login = () => {
         title: 'Success',
         description: 'Logged in successfully!',
       })
-      if (result.payload.user.role === 'admin') {
+      const role = result.payload.user.role?.toLowerCase()
+      if (role === 'admin') {
         navigate('/admin/dashboard')
       } else {
         navigate('/dashboard')
