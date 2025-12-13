@@ -24,10 +24,12 @@ const AdminLayout = () => {
     { icon: <Ticket className="h-5 w-5" />, label: 'Bookings', path: '/admin/bookings' },
   ]
 
+  const isOpen = useSelector((state) => state.ui.sidebarOpen)
+
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
-        <Sidebar>
+      <div className="flex h-screen bg-slate-50">
+        <Sidebar className="shadow-lg">
           <SidebarHeader>
             <span className="text-lg font-bold">Admin Panel</span>
           </SidebarHeader>
@@ -45,12 +47,12 @@ const AdminLayout = () => {
           </SidebarContent>
           <SidebarFooter>
             <div className="space-y-2">
-              <div className="px-3 py-2 text-sm text-slate-600">
+              <div className="px-3 py-2 text-sm text-slate-600 truncate">
                 {user?.name}
               </div>
               <Button
                 variant="ghost"
-                className="w-full justify-start"
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
                 onClick={handleLogout}
               >
                 <LogOut className="h-4 w-4 mr-2" />
@@ -59,7 +61,11 @@ const AdminLayout = () => {
             </div>
           </SidebarFooter>
         </Sidebar>
-        <main className="flex-1 overflow-y-auto bg-slate-50">
+        <main 
+          className={`flex-1 overflow-y-auto transition-all duration-300 ${
+            isOpen ? 'ml-64' : 'ml-16'
+          }`}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
