@@ -31,8 +31,6 @@ const AppLayout = () => {
         <Sidebar>
           <SidebarHeader>
             <div className="flex items-center gap-2">
-
-                <span className="text-lg font-bold text-slate-900">Event Booking</span>
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -68,8 +66,6 @@ const AppLayout = () => {
              {/* Mobile Header */}
              <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
                 <div className="flex items-center gap-2">
-
-                    <span className="font-bold text-lg text-slate-900">Event Booking</span>
                 </div>
                 <Button variant="ghost" size="icon" onClick={() => dispatch(toggleSidebar())}>
                     <Menu className="h-6 w-6 text-slate-600" />
