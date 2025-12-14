@@ -96,8 +96,12 @@ const eventSlice = createSlice({
         state.error = action.payload
       })
       // Fetch Event By ID
-      .addCase(fetchEventById.pending, (state) => {
-        state.loading = true
+      .addCase(fetchEventById.pending, (state, action) => {
+        // Only set loading to true if we're fetching a different event
+        // or if there's no current event. This prevents flickering during polling.
+        if (!state.currentEvent || state.currentEvent.id !== parseInt(action.meta.arg)) {
+          state.loading = true
+        }
         state.error = null
       })
       .addCase(fetchEventById.fulfilled, (state, action) => {

@@ -81,7 +81,6 @@ const AppLayout = () => {
 
             <main className="flex-1 overflow-y-auto bg-slate-50 p-4 sm:p-6 lg:p-8">
             <motion.div
-                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
                 className="max-w-7xl mx-auto"
