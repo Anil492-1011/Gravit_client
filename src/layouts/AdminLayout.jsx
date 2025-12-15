@@ -2,7 +2,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '@/store/authSlice'
 import { Sidebar, SidebarHeader, SidebarContent, SidebarItem, SidebarFooter, SidebarProvider } from '@/components/ui/sidebar'
-import { LayoutDashboard, Calendar, Ticket, LogOut, Plus } from 'lucide-react'
+import { LayoutDashboard, Calendar, Ticket, LogOut, Plus, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 
@@ -47,6 +47,17 @@ const AdminLayout = () => {
           </SidebarContent>
           <SidebarFooter>
             <div className={`space-y-2 ${!isOpen && 'flex flex-col items-center'}`}>
+              <Button
+                variant="ghost"
+                className={`w-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 ${
+                  isOpen ? 'justify-start px-4' : 'justify-center px-0 w-10 h-10'
+                }`}
+                onClick={() => navigate('/')}
+                title="Home"
+              >
+                <Globe className={`h-4 w-4 ${isOpen ? 'mr-2' : ''}`} />
+                {isOpen && <span className="truncate">Home</span>}
+              </Button>
               {isOpen && (
                 <div className="px-3 py-2 text-sm text-slate-600 truncate font-medium">
                   {user?.name}
