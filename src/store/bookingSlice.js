@@ -5,6 +5,7 @@ const initialState = {
   bookings: [],
   currentBooking: null,
   loading: false,
+  creatingBooking: false,
   error: null,
 }
 
@@ -83,18 +84,22 @@ const bookingSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Create Booking
+      // Create Booking
       .addCase(createBooking.pending, (state) => {
-        state.loading = true
+        state.loading = false // Don't block other operations
+        state.creatingBooking = true
         state.error = null
       })
       .addCase(createBooking.fulfilled, (state, action) => {
         state.loading = false
+        state.creatingBooking = false
         state.currentBooking = action.payload
         state.bookings.unshift(action.payload)
         state.error = null
       })
       .addCase(createBooking.rejected, (state, action) => {
         state.loading = false
+        state.creatingBooking = false
         state.error = action.payload
       })
       // Fetch User Bookings

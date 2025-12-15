@@ -32,7 +32,7 @@ const EventDetail = () => {
   const dispatch = useDispatch()
   const { currentEvent, loading } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.auth)
-  const { loading: bookingLoading } = useSelector((state) => state.bookings)
+  const { loading: bookingLoading, creatingBooking } = useSelector((state) => state.bookings)
   const { toast } = useToast()
 
   const [selectedSeats, setSelectedSeats] = useState([])
@@ -396,9 +396,9 @@ const EventDetail = () => {
               <Button
                 className="w-full"
                 onClick={handleBookNow}
-                disabled={selectedSeats.length === 0 || bookingLoading}
+                disabled={selectedSeats.length === 0 || creatingBooking}
               >
-                {bookingLoading ? 'Processing...' : 'Book Now'}
+                {creatingBooking ? 'Processing...' : 'Book Now'}
               </Button>
             </CardContent>
           </Card>
@@ -447,8 +447,8 @@ const EventDetail = () => {
               <Button type="button" variant="outline" onClick={() => setBookingDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={bookingLoading}>
-                {bookingLoading ? 'Processing...' : 'Confirm Booking'}
+              <Button type="submit" disabled={creatingBooking}>
+                {creatingBooking ? 'Processing...' : 'Confirm Booking'}
               </Button>
             </div>
           </form>
