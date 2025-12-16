@@ -232,7 +232,7 @@ const CreateEvent = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="price">Price per Ticket ($) *</Label>
+                  <Label htmlFor="price">Price per Ticket (₹) *</Label>
                   <Input
                     id="price"
                     type="number"

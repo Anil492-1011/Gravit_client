@@ -50,7 +50,7 @@ const AdminDashboard = () => {
     },
     {
       title: 'Total Revenue',
-      value: `$${totalRevenue.toFixed(2)}`,
+      value: `₹${totalRevenue.toFixed(2)}`,
       icon: DollarSign,
       color: 'text-blue-600',
       bg: 'bg-blue-100',
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
                           <TableCell className="font-medium text-slate-900">{booking.event?.title || 'Unknown Event'}</TableCell>
                           <TableCell className="text-slate-600">{booking.user?.name || 'Guest'}</TableCell>
                           <TableCell className="text-slate-500 text-sm">{new Date(booking.createdAt).toLocaleDateString()}</TableCell>
-                          <TableCell className="text-right font-medium text-indigo-600">${booking.totalAmount}</TableCell>
+                          <TableCell className="text-right font-medium text-indigo-600">₹{booking.totalAmount}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

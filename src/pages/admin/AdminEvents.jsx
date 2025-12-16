@@ -100,7 +100,7 @@ const AdminEvents = () => {
                     <TableCell className="font-medium">{event.title}</TableCell>
                     <TableCell>{event.location || 'N/A'}</TableCell>
                     <TableCell>{new Date(event.date).toLocaleDateString()}</TableCell>
-                    <TableCell>${event.price}</TableCell>
+                    <TableCell>₹{event.price}</TableCell>
                     <TableCell>{event.availableSeats} / {event.totalSeats}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 text-xs rounded-full ${

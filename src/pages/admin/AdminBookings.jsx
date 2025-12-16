@@ -83,7 +83,7 @@ const AdminBookings = () => {
                     <TableCell>{booking.title || 'Event'}</TableCell>
                     <TableCell>{booking.name || booking.email || 'N/A'}</TableCell>
                     <TableCell>{booking.seats?.join(', ') || 'N/A'}</TableCell>
-                    <TableCell>${booking.totalAmount}</TableCell>
+                    <TableCell>₹{booking.totalAmount}</TableCell>
                     <TableCell>
                       <Select
                         value={booking.status}

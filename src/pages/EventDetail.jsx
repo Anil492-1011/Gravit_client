@@ -348,7 +348,7 @@ const EventDetail = () => {
                 <span>{currentEvent.availableSeats} seats available out of {currentEvent.totalSeats}</span>
               </div>
               <div className="flex items-center text-slate-600">
-                <span className="text-2xl font-bold text-indigo-600">${currentEvent.price}</span>
+                <span className="text-2xl font-bold text-indigo-600">₹{currentEvent.price}</span>
                 <span className="ml-2 text-slate-500">per ticket</span>
               </div>
             </CardContent>
@@ -367,7 +367,7 @@ const EventDetail = () => {
                     Selected Seats: {selectedSeats.join(', ')}
                   </p>
                   <p className="text-indigo-700">
-                    Total: ${(selectedSeats.length * currentEvent.price).toFixed(2)}
+                    Total: ₹{(selectedSeats.length * currentEvent.price).toFixed(2)}
                   </p>
                 </div>
               )}
@@ -387,11 +387,11 @@ const EventDetail = () => {
               </div>
               <div className="flex justify-between">
                 <span>Price per ticket:</span>
-                <span className="font-medium">${currentEvent.price}</span>
+                <span className="font-medium">₹{currentEvent.price}</span>
               </div>
               <div className="border-t pt-4 flex justify-between text-lg font-bold">
                 <span>Total:</span>
-                <span className="text-indigo-600">${(selectedSeats.length * currentEvent.price).toFixed(2)}</span>
+                <span className="text-indigo-600">₹{(selectedSeats.length * currentEvent.price).toFixed(2)}</span>
               </div>
               <Button
                 className="w-full"
@@ -479,7 +479,7 @@ const EventDetail = () => {
               <div className="space-y-2 text-sm">
                 <p><strong>Booking ID:</strong> {bookingSuccess.id}</p>
                 <p><strong>Seats:</strong> {bookingSuccess.seats?.join(', ')}</p>
-                <p><strong>Total Amount:</strong> ${bookingSuccess.totalAmount}</p>
+                <p><strong>Total Amount:</strong> ₹{bookingSuccess.totalAmount}</p>
               </div>
               <div className="flex gap-2">
                 <Button

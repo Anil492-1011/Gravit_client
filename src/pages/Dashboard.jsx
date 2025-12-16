@@ -40,7 +40,7 @@ const Dashboard = () => {
     },
     {
       title: 'Total Spent',
-      value: `$${totalSpent.toFixed(2)}`,
+      value: `₹${totalSpent.toFixed(2)}`,
       icon: DollarSign,
       color: 'text-blue-600',
     },
@@ -147,7 +147,7 @@ const Dashboard = () => {
                       <div>
                         <h3 className="font-semibold">{booking.title || 'Event'}</h3>
                         <p className="text-sm text-slate-600">
-                          Seats: {booking.seats?.join(', ') || 'N/A'} • ${booking.totalAmount}
+                          Seats: {booking.seats?.join(', ') || 'N/A'} • ₹{booking.totalAmount}
                         </p>
                       </div>
                       <Button variant="outline" onClick={() => navigate(`/bookings`)}>

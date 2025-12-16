@@ -144,7 +144,7 @@ const Events = () => {
                 </CardContent>
                 <CardFooter className="pt-4">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-3 sm:gap-0">
-                    <span className="text-xl sm:text-2xl font-bold text-indigo-600">${event.price}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-indigo-600">₹{event.price}</span>
                     <Button size="sm" className="w-full sm:w-auto">View Details</Button>
                   </div>
                 </CardFooter>

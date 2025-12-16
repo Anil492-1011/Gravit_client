@@ -196,7 +196,7 @@ const Bookings = () => {
                 <CardFooter className="p-5 pt-0 mt-auto flex items-center justify-between border-t border-slate-100 bg-slate-50/50">
                     <div className="py-4">
                         <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Total Amount</p>
-                        <p className="text-xl font-bold text-slate-900">${booking.totalAmount}</p>
+                        <p className="text-xl font-bold text-slate-900">₹{booking.totalAmount}</p>
                     </div>
                     <Button 
                         onClick={() => handleViewQR(booking)}

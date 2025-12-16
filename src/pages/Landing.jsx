@@ -310,7 +310,7 @@ const Landing = () => {
                     <div className="flex items-center justify-between w-full">
                         <div>
                             <span className="text-xs text-slate-500 uppercase font-semibold">Price</span>
-                            <div className="text-xl font-bold text-slate-900">${event.price}</div>
+                            <div className="text-xl font-bold text-slate-900">₹{event.price}</div>
                         </div>
                         <Button onClick={() => handleEventClick(event.id)} className="bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all">
                             Book Now
